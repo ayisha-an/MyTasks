@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- inherit sale order view and add ship field -->
+     <record id="sale_order_inherit" model="ir.ui.view">
+       <field name="name">sale.order.inherit</field>
+        	<field name="model">sale.order</field>
+        	<field name="inherit_id" ref="sale.view_order_form"/>
+        	<field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="ship"/>
+                    <button name="update_ship_info" string="Update to Order Lines" type="object" class="btn-secondary"/>
+                </xpath>
+        	</field>
+     </record>
+
+    <!-- inherit sale order tree view -->
+    <record id="sale_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="ship"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- inherit sale order line view -->
+
+    <record model="ir.ui.view" id="sale_order_view_inherit">
+        <field name="name">sale.order.view.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="ship"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- list/tree view -->
+    <record model="ir.ui.view" id="ship_info_tree_view">
+      <field name="name">sale.ship_info.tree</field>
+      <field name="model">sale.ship_info</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="imo"/>
+          <field name="hull_no"/>
+          <field name="engine_no"/>
+          <field name="vessel_name"/>
+          <field name="build_year"/>
+          <field name="shipyard"/>
+          <field name="ship_owner"/>
+          <field name="ship_management"/>
+          <field name="engine_builder"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- form view -->
+    <record model="ir.ui.view" id="ship_info_form_view">
+      <field name="name">sale.ship_info.form</field>
+      <field name="model">sale.ship_info</field>
+      <field name="arch" type="xml">
+         <form>
+           <sheet>
+             <group>
+               <group>
+                 <field name="imo"/>
+                 <field name="hull_no"/>
+                 <field name="engine_no"/>
+                 <field name="vessel_name"/>
+                 <field name="build_year"/>
+               </group>
+               <group>
+                 <field name="shipyard"/>
+                 <field name="ship_owner"/>
+                 <field name="ship_management"/>
+                 <field name="engine_builder"/>
+               </group>
+             </group>
+           </sheet>
+             <div class="oe_chatter">
+                 <field name="message_follower_ids" widget="mail_followers"/>
+                 <field name="activity_ids" widget="mail_activity"/>
+                 <field name="message_ids" widget="mail_thread"/>
+             </div>
+         </form>
+      </field>
+    </record>
+
+        <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="ship_info_action">
+      <field name="name">Ship Information</field>
+      <field name="res_model">sale.ship_info</field>
+      <field name="view_mode">tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create a new ship here!
+        </p>
+      </field>
+    </record>
+
+    <!-- menu category -->
+    <menuitem name="Ship Information" id="ship_info" parent="sale.menu_sale_config"/>
+
+    <!-- menu item action -->
+    <menuitem name="Ship" id="ship_object" parent="ship_info" action="ship_info_action"/>
+
+  </data>
+</odoo>
