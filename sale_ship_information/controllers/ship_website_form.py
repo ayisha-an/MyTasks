@@ -18,5 +18,13 @@ class WebsiteShipInfo(http.Controller):
     @http.route('/create/webship', type='http', auth='public', website=True, sitemap=False)
     def create_ship(self, **kwargs):
         """Create ship object and render a page with creation success message"""
-        request.env['sale.ship_info'].create(kwargs)
-        return http.request.render('sale_ship_information.creation_success', {})
+        imo = kwargs['imo']
+        ship = request.env['sale.ship_info'].search([])
+        for each in ship:
+            if each.imo == imo:
+                return http.request.render('sale_ship_information.creation_failed', {})
+
+            else:
+                request.env['sale.ship_info'].create(kwargs)
+                return http.request.render('sale_ship_information.creation_success', {})
+

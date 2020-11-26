@@ -19,9 +19,9 @@ class Ship(models.Model):
     ship_management = fields.Many2one('res.partner', string="Ship Management")
     engine_builder = fields.Many2one('res.partner', string="Engine Builder")
 
-    _sql_constraints = [
-        ('imo_unique', 'unique(imo)', "IMO already exists !")
-    ]
+    # _sql_constraints = [
+    #     ('imo_unique', 'unique(imo)', "IMO already exists !")
+    # ]
 
 
 class ShipSaleOrder(models.Model):
