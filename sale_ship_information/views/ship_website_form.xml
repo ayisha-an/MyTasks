@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Ship object creation form in website-->
         <template id="createship_form" name="Ship Information">
             <t t-call="website.layout">
                 <div id="wrap">
@@ -38,7 +39,7 @@
                                                                 <span class="s_website_form_label_content">Hull Number</span>
                                                             </label>
                                                             <div class="col-sm">
-                                                                <input id="hull_no" type="text" class="form-control s_website_form_input" name="hull_no" required=""/>
+                                                                <input id="hull_no" type="text" class="form-control s_website_form_input" name="hull_no"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -48,7 +49,7 @@
                                                                 <span class="s_website_form_label_content">Engine Number</span>
                                                             </label>
                                                             <div class="col-sm">
-                                                                <input id="engine_no" type="text" class="form-control s_website_form_input" name="engine_no" required=""/>
+                                                                <input id="engine_no" type="text" class="form-control s_website_form_input" name="engine_no"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -69,60 +70,79 @@
                                                                 <span class="s_website_form_label_content">Build Year</span>
                                                             </label>
                                                             <div class="col-sm">
-                                                                <input id="build_year" type="text" class="form-control s_website_form_input" name="build_year" required=""/>
+                                                                <input id="build_year" type="text" class="form-control s_website_form_input" name="build_year"/>
                                                             </div>
                                                         </div>
                                                     </div>
-<!--                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">-->
-<!--                                                        <div class="row s_col_no_resize s_col_no_bgcolor">-->
-<!--                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="shipyard">-->
-<!--                                                                <span class="s_website_form_label_content">Shipyard</span>-->
-<!--                                                                <span class="s_website_form_mark"> *</span>-->
-<!--                                                            </label>-->
-<!--                                                            <div class="col-sm">-->
-<!--                                                                <select name="shipyard" class="form-control">-->
-<!--&lt;!&ndash;                                                                    <option value="">State / Province...</option>&ndash;&gt;-->
-<!--                                                                    <t t-foreach="partners" t-as="partner">-->
-<!--                                                                        <option t-att-value="partner.id">-->
-<!--                                                                            <t t-esc="s.name" />-->
-<!--                                                                        </option>-->
-<!--                                                                    </t>-->
-<!--                                                                </select>-->
-<!--&lt;!&ndash;                                                                <input id="shipyard" type="text" class="form-control s_website_form_input" name="shipyard" required=""/>&ndash;&gt;-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">-->
-<!--                                                        <div class="row s_col_no_resize s_col_no_bgcolor">-->
-<!--                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="ship_owner">-->
-<!--                                                                <span class="s_website_form_label_content">Ship Owner</span>-->
-<!--                                                                <span class="s_website_form_mark"> *</span>-->
-<!--                                                            </label>-->
-<!--                                                            <div class="col-sm">-->
-<!--                                                                <input id="ship_owner" type="text" class="form-control s_website_form_input" name="ship_owner" required=""/>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">-->
-<!--                                                        <div class="row s_col_no_resize s_col_no_bgcolor">-->
-<!--                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="ship_management">-->
-<!--                                                                <span class="s_website_form_label_content">Ship Management</span>-->
-<!--                                                            </label>-->
-<!--                                                            <div class="col-sm">-->
-<!--                                                                <input id="ship_management" type="text" class="form-control s_website_form_input" name="ship_management" required=""/>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">-->
-<!--                                                        <div class="row s_col_no_resize s_col_no_bgcolor">-->
-<!--                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="engine_builder">-->
-<!--                                                                <span class="s_website_form_label_content">Engine Builder</span>-->
-<!--                                                            </label>-->
-<!--                                                            <div class="col-sm">-->
-<!--                                                                <input id="engine_builder" type="text" class="form-control s_website_form_input" name="engine_builder" required=""/>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
+                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="shipyard">
+                                                                <span class="s_website_form_label_content">Shipyard</span>
+                                                                <span class="s_website_form_mark"> *</span>
+                                                            </label>
+                                                            <div class="col-sm">
+                                                                <select name="shipyard" class="form-control" required="">
+                                                                    <option value="">Shipyard...</option>
+                                                                    <t t-foreach="partners" t-as="partner">
+                                                                        <option t-att-value="partner.id">
+                                                                            <t t-esc="partner.name" />
+                                                                        </option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="ship_owner">
+                                                                <span class="s_website_form_label_content">Ship Owner</span>
+                                                            </label>
+                                                            <div class="col-sm">
+                                                                <select name="ship_owner" class="form-control">
+                                                                    <option value="">Ship Owner...</option>
+                                                                    <t t-foreach="partners" t-as="partner">
+                                                                        <option t-att-value="partner.id">
+                                                                            <t t-esc="partner.name" />
+                                                                        </option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="ship_management">
+                                                                <span class="s_website_form_label_content">Ship Management</span>
+                                                            </label>
+                                                            <div class="col-sm">
+                                                                <select name="ship_management" class="form-control">
+                                                                    <option value="">Ship Management...</option>
+                                                                    <t t-foreach="partners" t-as="partner">
+                                                                        <option t-att-value="partner.id">
+                                                                            <t t-esc="partner.name" />
+                                                                        </option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required" data-type="char" data-name="Field">
+                                                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="engine_builder">
+                                                                <span class="s_website_form_label_content">Engine Builder</span>
+                                                            </label>
+                                                            <div class="col-sm">
+                                                                <select name="engine_builder" class="form-control">
+                                                                    <option value="">Engine Builder...</option>
+                                                                    <t t-foreach="partners" t-as="partner">
+                                                                        <option t-att-value="partner.id">
+                                                                            <t t-esc="partner.name" />
+                                                                        </option>
+                                                                    </t>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group offset-md-5 col-4 clearfix oe_login_buttons">
                                                         <div class="row s_col_no_resize s_col_no_bgcolor">
                                                             <button type="submit" class="btn btn-primary btn-block">Create</button>
@@ -140,6 +160,7 @@
             </t>
         </template>
 
+        <!-- Page displayed after creation of ship object -->
         <record id="creation_success" model="website.page">
             <field name="name">Success</field>
             <field name="type">qweb</field>
@@ -182,6 +203,3 @@
     </data>
 </odoo>
 
-<!--<div class="clearfix oe_login_buttons">-->
-<!--                                                       <button type="submit" class="btn btn-primary btn-block"></button>-->
-<!--                                                    </div>-->
